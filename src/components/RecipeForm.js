@@ -9,7 +9,7 @@ const RecipeForm = ({ initialRecipe, onSubmit }) => {
     setRecipe({ ...recipe, [e.target.name]: e.target.value });
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (e)=> {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
