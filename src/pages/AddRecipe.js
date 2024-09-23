@@ -10,15 +10,26 @@ const AddRecipe = ({ addRecipe }) => {
   const [imageUrl, setImageUrl] = useState('');
   const navigate = useNavigate();
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageUrl(reader.result); // Set the image URL to the reader result
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newRecipe = {
       title,
-      ingredients: ingredients.split(','), // Assuming comma-separated input
+      ingredients: ingredients.split(',').map(item => item.trim()), // Clean up ingredients
       instructions,
       cuisine,
       price: parseFloat(price),
-      imageUrl
+      imageUrl,
     };
     addRecipe(newRecipe);
     navigate('/');
@@ -66,12 +77,15 @@ const AddRecipe = ({ addRecipe }) => {
         required
       />
       <input
-        type="text"
+        type="file"
         className="border p-2 w-full mb-4"
-        placeholder="Image URL"
-        value={imageUrl}
-        onChange={(e) => setImageUrl(e.target.value)}
+        accept="image/*"
+        onChange={handleImageChange} // Handle image file input
+        required
       />
+      {imageUrl && ( // Display the image preview
+        <img src={imageUrl} alt="Preview" className="w-full h-48 object-cover mb-4" />
+      )}
       <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
         Add Recipe
       </button>
