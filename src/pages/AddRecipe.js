@@ -66,7 +66,7 @@ const AddRecipe = ({ addRecipe }) => {
         required
       />
       <input
-        type="text"
+        type="file"
         className="border p-2 w-full mb-4"
         placeholder="Image URL"
         value={imageUrl}
