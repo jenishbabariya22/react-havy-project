@@ -9,6 +9,17 @@ const RecipeForm = ({ initialRecipe, onSubmit }) => {
     setRecipe({ ...recipe, [e.target.name]: e.target.value });
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setRecipe({ ...recipe, imageUrl: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(recipe);
@@ -47,13 +58,14 @@ const RecipeForm = ({ initialRecipe, onSubmit }) => {
         className="border p-2 w-full"
       />
       <input
-        type="text"
-        name="imageUrl"
-        value={recipe.imageUrl}
-        onChange={handleChange}
-        placeholder="Image URL"
-        className="border p-2 w-full"
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+        className="border p-2 w-full mb-4"
       />
+      {recipe.imageUrl && (
+        <img src={recipe.imageUrl} alt="Preview" className="w-full h-48 object-cover mb-4" />
+      )}
       <button type="submit" className="bg-blue-500 text-white p-2 rounded">
         Save Recipe
       </button>
