@@ -77,12 +77,12 @@ const RecipeList = ({ recipes, deleteRecipe }) => {
                 <Link to={`/edit/${recipe.id}`} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                   Edit
                 </Link>
-                {/* <button
+                { <button
                   className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
                   onClick={() => deleteRecipe(recipe.id)}
                 >
                   Delete
-                </button> */}
+                </button> }
               </div>
             </div>
           </div>
